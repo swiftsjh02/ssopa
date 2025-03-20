@@ -1,29 +1,18 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Exception.Auth.alreadyRegisteredException;
-import com.example.demo.Service.ApnsPushService;
 import com.example.demo.Service.AuthService;
 import com.example.demo.common.HttpResponseUtil;
 import com.example.demo.dto.auth.*;
 import com.example.demo.dto.jwt.TokenReqDto;
 import com.example.demo.dto.auth.MemberRequestDto;
 
-import com.example.demo.entity.DeviceToken;
-import com.example.demo.entity.Member;
-import com.example.demo.entity.PushPayload;
-import com.example.demo.repository.DeviceTokenRepository;
-import com.example.demo.repository.MemberReportRepository;
-import com.example.demo.repository.MemberRepository;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Payload;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,9 +21,7 @@ import java.util.List;
 public class AuthController {
     private final AuthService authService;
     private final HttpResponseUtil httpResponseUtil;
-//    private final DeviceTokenRepository deviceTokenRepository;
-//    private final ApnsPushService apnsPushService;
-//    private final MemberRepository memberRepository;
+
     @Operation(summary = "디바이스토큰등록")
     @PostMapping("/registertoken")
     public ResponseEntity<?> signup(@RequestParam(value="deviceToken") String token) {
