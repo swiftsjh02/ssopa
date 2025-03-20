@@ -1,50 +1,50 @@
 
 
-name: dmz_time CI/CD
-on: # deploy Branch에서 push 이벤트가 일어났을 때만 실행
-  pull_request:
-    branches: [ main ]
+#name: dmz_time CI/CD
+#on: # deploy Branch에서 push 이벤트가 일어났을 때만 실행
+#  pull_request:
+#    branches: [ main ]
 
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04 # Job 가상환경 인스턴스
-    steps: # Steps
-      - name: Checkout source code. # 레포지토리 체크아웃
-        uses: actions/checkout@main
-
-      - name: Cache node modules # node modules 캐싱
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-      - name: Install Dependencies # 의존 파일 설치
-        run: npm install
-        working-directory: src/main/frontend
-
-      - name: Build # React Build
-        run: CI='' npm run build
-        working-directory: src/main/frontend
-
-
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DMZ }}
-          username: ${{ secrets.DMZ_USER }}
-          password: ${{ secrets.DMZ_KEY }}
-          port: ${{ secrets.DMZ_PORT }}
-          source: 'src/main/frontend/build'
-          target: '/home/dmz/ssopa_frontend'
-
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DMZ }}
-          username: ${{ secrets.DMZ_USER }}
-          password: ${{ secrets.DMZ_KEY }}
-          port: ${{ secrets.DMZ_PORT }}
+#jobs:
+#  build:
+#    runs-on: ubuntu-22.04 # Job 가상환경 인스턴스
+#    steps: # Steps
+#      - name: Checkout source code. # 레포지토리 체크아웃
+#        uses: actions/checkout@main
+#
+#      - name: Cache node modules # node modules 캐싱
+#        uses: actions/cache@v1
+#        with:
+#          path: node_modules
+#          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.OS }}-build-
+#            ${{ runner.OS }}-
+#      - name: Install Dependencies # 의존 파일 설치
+#        run: npm install
+#        working-directory: src/main/frontend
+#
+#      - name: Build # React Build
+#        run: CI='' npm run build
+#        working-directory: src/main/frontend
+#
+#
+#      - name: copy file via ssh password
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.DMZ }}
+#          username: ${{ secrets.DMZ_USER }}
+#          password: ${{ secrets.DMZ_KEY }}
+#          port: ${{ secrets.DMZ_PORT }}
+#          source: 'src/main/frontend/build'
+#          target: '/home/dmz/ssopa_frontend'
+#
+#      - name: executing remote ssh commands using password
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.DMZ }}
+#          username: ${{ secrets.DMZ_USER }}
+#          password: ${{ secrets.DMZ_KEY }}
+#          port: ${{ secrets.DMZ_PORT }}
 
