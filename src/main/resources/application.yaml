@@ -20,9 +20,9 @@ spring:
       fail-on-empty-beans: false
 
   datasource:
-    url: jdbc:mysql://34.22.68.218:3306/test
-    username: dmz
-    password: 1234
+    url: jdbc:mysql://localhost:3306/test
+    username: "test"
+    password: "0000"
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -58,30 +58,12 @@ sms:
   apiKey : NCSWUXEY6GVEX4US
   secretKey : OAEENSHT7XUHYHJLPHUIAWVWVJSE3XC7
 
-neis:
-  apiKey: 5decd9d597c54dd5a7410cc48fde6709
 
 server:
   error:
     include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
     include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
 
-cloud:
-  aws:
-    s3:
-      bucket: 버킷명
-    credentials:
-      access-key: IAM 계정 - access key
-      secret-key: IAM 계정 - secret access key
-    region:
-      static: 현재 s3 버킷의 Region
-    stack:
-      auto: false
 
-push:
-  apns:
-    topic: dmz.ssopa
-    teamId: CFQ4ZSUWR7
-    authKeyId: 2QPURU9C8F
-    apnsHostName: api.push.apple.com
-    apnsPort: 443
+
+

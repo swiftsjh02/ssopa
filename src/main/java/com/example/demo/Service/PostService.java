@@ -34,7 +34,6 @@ public class PostService {
     private final HeartRepository heartRepository;
     private final HotRepository hotRepository;
     private final ReportService reportService;
-    private final ApnsPushService apnsPushService;
     private final DeviceTokenRepository deviceTokenRepository;
     private final SaveData saveData;
 
@@ -63,7 +62,7 @@ public class PostService {
         for(DeviceToken deviceToken : deviceTokens) {
             tokens.add(deviceToken.getToken());
         }
-        apnsPushService.sendPush(tokens, PushPayload.builder().alertBody(post.getTitle()).alertTitle("새로운 게시글").sound("bingbong.aiff").build());
+
 
 
 
@@ -178,7 +177,6 @@ public class PostService {
             List<Member> members = new ArrayList<>();
             Member postOwner = memberRepository.findById(post.getUserId()).orElseThrow(() -> new RuntimeException("게시글 작성자 정보가 없습니다"));
             members.add(postOwner);
-            apnsPushService.sendPushByMember(members,payload);
 
 
             return HeartDto.of(heart);
