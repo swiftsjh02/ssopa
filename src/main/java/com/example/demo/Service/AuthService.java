@@ -137,8 +137,8 @@ public class AuthService {
 
     public SmsDto PhoneNumberCheck(String phoneNumber,Boolean isFindID) {
         if(isFindID == false){
-            if(!memberRepository.existsByPhonenumber(phoneNumber)){
-                throw new alreadyRegisteredException("가입되어 있지 않은 번호입니다");
+            if(memberRepository.existsByPhonenumber(phoneNumber)){
+                throw new alreadyRegisteredException("가입되어 있는 번호입니다");
             }
         }
         Random rand  = new Random();
@@ -148,9 +148,9 @@ public class AuthService {
             numStr+=ran;
         }
         Message coolsms = new Message();
-        coolsms.setFrom("01046306320");
+        coolsms.setFrom("01027656435");
         coolsms.setTo(phoneNumber);
-        coolsms.setText("[ssopa]인증번호는 [" + numStr + "] 입니다.");
+        coolsms.setText("[adigo]인증번호는 [" + numStr + "] 입니다.");
         SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(coolsms));
         System.out.println(response);
         smsCertificationDao.createSmsCertification(phoneNumber,numStr+":0"); //저장
