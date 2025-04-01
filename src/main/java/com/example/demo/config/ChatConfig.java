@@ -28,10 +28,10 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
-
+        // /queue: 1:1 메시지, /topic: 1:N 메시지 (브로드캐스팅)
         registry.enableSimpleBroker("/queue", "/topic");
 
-
+        // 클라이언트 -> 서버 메시지 보낼 때 사용할 prefix
         registry.setApplicationDestinationPrefixes("/app");  // Sets the prefix used to filter messages targeted for application handling
     }
 
