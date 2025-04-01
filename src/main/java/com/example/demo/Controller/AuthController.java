@@ -1,6 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Exception.Auth.alreadyRegisteredException;
+import com.example.demo.Exception.Auth.*;
 import com.example.demo.Service.AuthService;
 import com.example.demo.common.HttpResponseUtil;
 import com.example.demo.dto.auth.*;
@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,13 +44,16 @@ public class AuthController {
             return httpResponseUtil.createInternalServerErrorHttpResponse("회원가입 실패: " + e.getMessage());
         }
     }
-
+//서버주소/auth/login
     @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginrequest) {
         try {
             return httpResponseUtil.createOKHttpResponse(authService.login(loginrequest), "로그인 성공");
-        } catch (Exception e) {
+        } catch (BadCredentialsException e){
+            return httpResponseUtil.createBadRequestHttpResponse(e.getMessage());
+        }
+        catch (Exception e) {
             return httpResponseUtil.createInternalServerErrorHttpResponse("로그인 실패: " + e.getMessage());
         }
     }
@@ -73,6 +77,7 @@ public class AuthController {
             return httpResponseUtil.createBadRequestHttpResponse("이미 가입된 회원입니다.");
         }
         catch (Exception e) {
+            System.out.println("인증문자 보내기 실패: " + e.getMessage());
             return httpResponseUtil.createInternalServerErrorHttpResponse("인증문자 보내기 실패: " + e.getMessage());
         }
     }

@@ -22,6 +22,8 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -86,15 +88,45 @@ public class AuthService {
         return MemberResponseDto.of(member);
     }
 
+
+
     public TokenDto login(LoginDto loginrequest) {
         UsernamePasswordAuthenticationToken authenticationToken = loginrequest.toAuthentication();
-        Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+
+        // Obtain the AuthenticationManager instance
+        AuthenticationManager authenticationManager = managerBuilder.getObject();
+
+        Authentication authentication;
+        try {
+            // Attempt to authenticate
+            //log.debug("Attempting authentication for user: {}", loginrequest.getEmail());
+            authentication = authenticationManager.authenticate(authenticationToken);
+            //log.info("Authentication successful for user: {}", authentication.getName()); // Log success with authenticated principal
+
+        } catch (BadCredentialsException e) {
+            // --- Specific Handling for Bad Credentials ---
+            //log.warn("Authentication failed for user {}: Invalid credentials", loginrequest.getEmail());
+            // Throw a new exception with a user-friendly message
+            throw new BadCredentialsException("아이디 또는 비밀번호가 일치하지 않습니다.");
+
+        }
+
+        // --- If Authentication Successful ---
+
+        // Generate tokens
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+
+        // Build and save the Refresh Token
         RefreshToken refreshToken = RefreshToken.builder()
-                .email(loginrequest.getEmail())
+                // It's generally better to use the authenticated principal's identifier
+                // if loginrequest.getEmail() might not be the canonical ID (e.g., username vs email)
+                // .email(authentication.getName()) // Consider this if applicable
+                .email(loginrequest.getEmail()) // Using original request email as per original code
                 .value(tokenDto.getRefreshToken())
                 .build();
         refreshTokenRepository.save(refreshToken);
+
+        // Return the DTO containing the tokens
         return tokenDto;
     }
 
