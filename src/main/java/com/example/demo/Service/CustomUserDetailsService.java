@@ -1,7 +1,7 @@
 package com.example.demo.Service;
 
-import com.example.demo.entity.Member;
-import com.example.demo.repository.MemberRepository;
+import com.example.demo.entity.Member.Member;
+import com.example.demo.repository.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

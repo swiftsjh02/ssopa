@@ -35,7 +35,7 @@ public class ReportController {
             /*
             * 유저 신고 실패:
             *  Null return value from advice does not match primitive return type for:
-            * public abstract boolean com.example.demo.repository.MemberReportRepository.findByReporterIdAndReportedUserId(java.lang.Long,java.lang.Long)
+            * public abstract boolean com.example.demo.repository.Member.MemberReportRepository.findByReporterIdAndReportedUserId(java.lang.Long,java.lang.Long)
             * */
         }
     }

@@ -1,17 +1,14 @@
-package com.example.demo.repository;
+package com.example.demo.repository.Post;
 
 import com.example.demo.dto.post.LoadDto;
-import com.example.demo.entity.Member;
-import com.example.demo.entity.Post;
-import com.example.demo.entity.postCategory;
-import lombok.RequiredArgsConstructor;
+import com.example.demo.entity.Post.Post;
+import com.example.demo.entity.Post.postCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 @Service

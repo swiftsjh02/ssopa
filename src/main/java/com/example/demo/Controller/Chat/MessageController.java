@@ -1,16 +1,14 @@
 package com.example.demo.Controller.Chat;
 
 import com.example.demo.dto.chat.ChatMessage;
-import com.example.demo.entity.Member;
-import com.example.demo.repository.MemberRepository;
+import com.example.demo.entity.Member.Member;
+import com.example.demo.repository.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController

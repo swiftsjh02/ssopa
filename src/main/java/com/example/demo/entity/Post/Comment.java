@@ -1,11 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.entity.Post;
 
 import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

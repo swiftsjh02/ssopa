@@ -10,7 +10,7 @@ import java.time.Duration;
 @Repository
 public class SmsService {
     private final String PREFIX = "sms:";  // (1)
-    private final int LIMIT_TIME = 3 * 60;  // (2)
+    private final int LIMIT_TIME = 5 * 60;  // (2)
     private final StringRedisTemplate stringRedisTemplate;
     public void createSmsCertification(String phone, String certificationNumber) { //(3)member
         stringRedisTemplate.opsForValue()

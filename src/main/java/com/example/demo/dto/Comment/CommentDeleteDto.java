@@ -1,7 +1,6 @@
 package com.example.demo.dto.Comment;
 
-import com.example.demo.entity.Comment;
-import com.example.demo.entity.Post;
+import com.example.demo.entity.Post.Comment;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

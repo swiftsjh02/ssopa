@@ -1,6 +1,7 @@
-package com.example.demo.entity;
+package com.example.demo.entity.Post;
 
 import javax.persistence.*;
+
 import lombok.*;
 
 @Getter //lombok

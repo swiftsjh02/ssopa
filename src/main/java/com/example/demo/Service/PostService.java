@@ -1,13 +1,20 @@
 package com.example.demo.Service;
 
-import com.eatthepath.pushy.apns.PushType;
 import com.example.demo.Exception.Post.NoSufficientPermissionException;
-import com.example.demo.Exception.Report.ReportedUserException;
 import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.post.*;
 import com.example.demo.entity.*;
+import com.example.demo.entity.Member.Member;
+import com.example.demo.entity.Post.Heart;
+import com.example.demo.entity.Post.Hot;
+import com.example.demo.entity.Post.Post;
+import com.example.demo.entity.Post.postCategory;
 import com.example.demo.jwt.TokenProvider;
 import com.example.demo.repository.*;
+import com.example.demo.repository.Member.MemberRepository;
+import com.example.demo.repository.Post.HeartRepository;
+import com.example.demo.repository.Post.HotRepository;
+import com.example.demo.repository.Post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.*;
 
 @Service

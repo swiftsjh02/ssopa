@@ -1,8 +1,8 @@
 package com.example.demo.dto.post;
 
 
-import com.example.demo.entity.Hot;
-import com.example.demo.entity.Post;
+import com.example.demo.entity.Post.Hot;
+import com.example.demo.entity.Post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

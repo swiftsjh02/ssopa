@@ -1,7 +1,7 @@
 package com.example.demo.dto.member;
 
-import com.example.demo.entity.Authority;
-import com.example.demo.entity.Member;
+import com.example.demo.entity.Member.Authority;
+import com.example.demo.entity.Member.Member;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,9 +1,9 @@
 package com.example.demo.Service;
 
-import com.example.demo.entity.Hot;
-import com.example.demo.repository.HotRepository;
+import com.example.demo.entity.Post.Hot;
+import com.example.demo.entity.Post.Post;
+import com.example.demo.repository.Post.HotRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

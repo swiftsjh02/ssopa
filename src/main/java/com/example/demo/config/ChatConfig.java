@@ -21,8 +21,8 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/chat")  // Registers the endpoint /ws/chat for WebSocket communication
-                .setAllowedOriginPatterns("*")  // Allows connections from any origin
-                .withSockJS();  // Enables the use of the SockJS fallback option in case WebSocket is not available
+                .setAllowedOriginPatterns("*") ; // Allows connections from any origin
+                //.withSockJS();  // Enables the use of the SockJS fallback option in case WebSocket is not available
     }
 
     @Override

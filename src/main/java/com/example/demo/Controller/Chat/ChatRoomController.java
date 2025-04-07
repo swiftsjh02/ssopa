@@ -2,9 +2,7 @@ package com.example.demo.Controller.Chat;
 
 import com.example.demo.Service.ChatService;
 import com.example.demo.common.HttpResponseUtil;
-import com.example.demo.dto.chat.ChatMessage;
 import com.example.demo.dto.chat.ChatRoom;
-import com.example.demo.repository.ChatMessageRepository;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.Path;
 
 import java.util.List;
 

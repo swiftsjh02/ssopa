@@ -4,19 +4,16 @@ import com.example.demo.dto.location.LocationDto; // LocationDto import
 import com.example.demo.dto.chat.ChatMessage;
 import com.example.demo.entity.Location;
 import com.example.demo.jwt.TokenProvider; // JWT Provider 클래스 이름 확인
-import com.example.demo.repository.ChatMessageRepository;
-// import com.example.demo.repository.MemberRepository; // MemberRepository 사용 여부 확인
+import com.example.demo.repository.Chat.ChatMessageRepository;
+// import com.example.demo.repository.Member.MemberRepository; // MemberRepository 사용 여부 확인
 import com.example.demo.repository.LocationRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate; // RedisTemplate import
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.MessageDeliveryException;
-import org.springframework.messaging.simp.stomp.StompCommand; // StompCommand import
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
@@ -113,8 +110,8 @@ public class StompHandler implements ChannelInterceptor {
             throw new BadCredentialsException("Invalid JWT token");
         }
 
-        // 토큰에서 사용자 ID (Email) 추출
-        String userId = jwtService.getMemberEmailByToken(token); // 이 메서드가 Email을 반환한다고 가정
+        // 토큰에서 사용자 ID (DB에 member의 primary number) 추출
+        String userId = jwtService.getMemberIdByToken(token); // 이 메서드가 Email을 반환한다고 가정
         if (userId == null) {
             log.error("Failed to extract user ID from valid token.");
             throw new InternalAuthenticationServiceException("Could not extract user ID from token");

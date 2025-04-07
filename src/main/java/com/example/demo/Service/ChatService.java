@@ -1,14 +1,11 @@
 package com.example.demo.Service;
 
-import com.example.demo.Exception.Post.NoSufficientPermissionException;
-import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.chat.ChatMessage;
 import com.example.demo.dto.chat.ChatRoom;
-import com.example.demo.dto.post.LoadDto;
-import com.example.demo.entity.Member;
-import com.example.demo.repository.ChatMessageRepository;
-import com.example.demo.repository.ChatRoomRepository;
-import com.example.demo.repository.MemberRepository;
+import com.example.demo.entity.Member.Member;
+import com.example.demo.repository.Chat.ChatMessageRepository;
+import com.example.demo.repository.Chat.ChatRoomRepository;
+import com.example.demo.repository.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

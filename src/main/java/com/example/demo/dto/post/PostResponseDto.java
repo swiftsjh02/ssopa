@@ -1,7 +1,7 @@
 package com.example.demo.dto.post;
 
 
-import com.example.demo.entity.Post;
+import com.example.demo.entity.Post.Post;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

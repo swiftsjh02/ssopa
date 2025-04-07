@@ -2,25 +2,22 @@ package com.example.demo.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import com.example.demo.Exception.Post.NoSufficientPermissionException;
 import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.Comment.CommentDeleteDto;
 import com.example.demo.dto.Comment.CommentResponseDto;
 import com.example.demo.dto.Comment.LoadCommentDto;
-import com.example.demo.dto.post.PostResponseDto;
-import com.example.demo.entity.Comment;
-import com.example.demo.entity.Hot;
-import com.example.demo.entity.Member;
-import com.example.demo.entity.Post;
-import com.example.demo.repository.CommentRepository;
-import com.example.demo.repository.LoadCommentRepository;
-import com.example.demo.repository.MemberRepository;
-import com.example.demo.repository.PostRepository;
+import com.example.demo.entity.Post.Comment;
+import com.example.demo.entity.Post.Hot;
+import com.example.demo.entity.Post.Post;
+import com.example.demo.entity.Member.Member;
+import com.example.demo.entity.Post.Post;
+import com.example.demo.repository.Post.CommentRepository;
+import com.example.demo.repository.Post.LoadCommentRepository;
+import com.example.demo.repository.Member.MemberRepository;
+import com.example.demo.repository.Post.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

@@ -2,15 +2,23 @@ package com.example.demo.Controller;
 
 import com.example.demo.Service.MemberService;
 import com.example.demo.common.HttpResponseUtil;
+import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.member.ChangePasswordRequestDto;
+import com.example.demo.dto.member.FriendRequestDto;
+import com.example.demo.dto.member.FriendRequestReplyDto;
 import com.example.demo.dto.member.MemberResponseDto;
 
+import com.example.demo.entity.Member.Friendship;
+import com.example.demo.entity.Member.Member;
 import com.example.demo.repository.DeviceTokenRepository;
+import com.example.demo.repository.Member.FriendshipRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
     private final HttpResponseUtil httpResponseUtil;
+    private final FriendshipRepository friendshipRepository;
+
 
     @GetMapping("/me")
     @ApiOperation(value = "내 정보 조회")
@@ -30,6 +40,45 @@ public class MemberController {
             return httpResponseUtil.createInternalServerErrorHttpResponse("내 정보 조회 실패: " + e.getMessage());
         }
     }
+
+    @PostMapping("/friend/request")
+    @ApiOperation(value = "친구 요청 보내기")
+    public ResponseEntity<?> requestFriend(@RequestBody FriendRequestDto dto) {
+        try {
+                    memberService.sendFriendRequest(dto);
+            return httpResponseUtil.createOKHttpResponse(null, "친구 요청이 전송되었습니다.");
+        } catch (IllegalStateException e){
+            return httpResponseUtil.createBadRequestHttpResponse(e.getMessage());
+        }
+        catch (Exception e) {
+            return httpResponseUtil.createInternalServerErrorHttpResponse("친구 요청 실패: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/friend/reply")
+    @ApiOperation(value = "친구 추가 요청에 대한 답변을 핸들하는 컨트롤러")
+    public ResponseEntity<?> requestFriendReply(@RequestBody FriendRequestReplyDto dto) {
+        try{
+            memberService.handleFriendRequestReply(dto);
+            return httpResponseUtil.createOKHttpResponse(null, "친구 요청 수락 완료");
+        }catch (IllegalStateException e){
+            return httpResponseUtil.createBadRequestHttpResponse(e.getMessage());
+        }catch (Exception e) {
+            return httpResponseUtil.createInternalServerErrorHttpResponse(e.getMessage());
+        }
+    }
+
+    @GetMapping("/friend/lookup")
+    @ApiOperation(value="나에게 온 친구 요청 목록 조회")
+    public ResponseEntity<?> getFriendRequest() {
+        try{
+            List<Friendship> requests = memberService.getPendingRequestsForUser();
+            return httpResponseUtil.createOKHttpResponse(requests,"친구 요청 목록 조회 성공");
+        }catch (Exception e){
+            return httpResponseUtil.createInternalServerErrorHttpResponse(e.getMessage());
+        }
+    }
+
 
     @PostMapping("/nickname")
     @ApiOperation(value = "닉네임 변경 요청")
@@ -60,6 +109,8 @@ public class MemberController {
             return httpResponseUtil.createInternalServerErrorHttpResponse("토큰 연동 실패: " + e.getMessage());
         }
     }
+
+
 
 
 

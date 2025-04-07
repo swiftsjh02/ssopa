@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entity.Post;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,7 @@ public class Hot {
     public Hot() {
     }
     @Builder
-    public Hot(Long id, Post  post, int weight, Long userId){
+    public Hot(Long id, Post post, int weight, Long userId){
         this.id = id;
         this.post = post;
         this.weight = weight;

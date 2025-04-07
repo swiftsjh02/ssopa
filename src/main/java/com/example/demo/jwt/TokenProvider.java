@@ -152,10 +152,10 @@ public class TokenProvider {
     /**
      *
      * @param token
-     * @return 토큰 값을 파싱하여 클레임에 담긴 이메일 값을 가져온다.
+     * @return 토큰 값을 파싱하여 클레임에 담긴 Id 값을 가져온다.
      */
-    public String getMemberEmailByToken(String token) {
-        // 토큰의 claim 의 sub 키에 이메일 값이 들어있다.
+    public String getMemberIdByToken(String token) {
+        // 토큰의 claim 의 sub 키에 Id 값이 들어있다.
         return this.parseClaims(token).getSubject();
     }
 }

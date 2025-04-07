@@ -6,10 +6,10 @@ import com.example.demo.Exception.Report.ReportedUserException;
 import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.Report.UserReportRequest;
 import com.example.demo.dto.Report.UserResponseDto;
-import com.example.demo.entity.Member;
+import com.example.demo.entity.Member.Member;
 import com.example.demo.entity.UserReport;
-import com.example.demo.repository.MemberReportRepository;
-import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.Member.MemberReportRepository;
+import com.example.demo.repository.Member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.repository.Chat;
 
 import com.example.demo.dto.chat.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,11 +1,10 @@
-package com.example.demo.entity;
+package com.example.demo.entity.Member;
 
 import javax.persistence.*;
+
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

@@ -1,7 +1,7 @@
 package com.example.demo.dto.post;
 
-import com.example.demo.entity.Heart;
-import com.example.demo.entity.Post;
+import com.example.demo.entity.Post.Heart;
+import com.example.demo.entity.Post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
