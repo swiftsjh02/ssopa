@@ -43,7 +43,7 @@ public class SwaggerConfig {
 
                 .servers(Collections.singletonList(
                         new Server().url("/api")
-                )); //이 부분은 prod 환경에서만 쓰고 local에서 servers 부분은 지우고 써야함
+                )); //이 부분은 prod 에서만 사용 servers는 로컬에서는 삭제하고 돌리세요.
 
 
 

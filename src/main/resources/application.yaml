@@ -67,7 +67,7 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /api/doc
+    path: /manual
 
 
 

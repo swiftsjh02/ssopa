@@ -69,6 +69,7 @@ public class WebSecurityConfig{
                         .antMatchers("/v3/api-docs/**").permitAll()
                         .antMatchers("/swagger-ui.html").permitAll()
                         .antMatchers("/v2/api-docs").permitAll()
+                        .antMatchers("/manual/**").permitAll()
                         //.antMatchers("/member/**").permitAll()
                         .antMatchers("/index").permitAll()
                         .antMatchers("/swagger-resources/**").permitAll()
