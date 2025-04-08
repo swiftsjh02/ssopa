@@ -6,8 +6,11 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Collections;
 
 @Configuration
 public class SwaggerConfig {
@@ -24,8 +27,9 @@ public class SwaggerConfig {
                         .contact(new Contact()
                                 .name("서지호")
                                 .url("홈페이지 URL")
-                                .email("ksdk6145@gachon.ac.kr")
-                        )
+                                .email("ksdk6145@gachon.ac.kr"))
+
+
                 )
                 .components(new Components()
                         .addSecuritySchemes(jwtSchemeName,
@@ -35,6 +39,16 @@ public class SwaggerConfig {
                                         .bearerFormat("JWT")
                         )
                 )
-                .addSecurityItem(new SecurityRequirement().addList(jwtSchemeName));
+                .addSecurityItem(new SecurityRequirement().addList(jwtSchemeName))
+
+                .servers(Collections.singletonList(
+                        new Server().url("/api")
+                )); //이 부분은 prod 환경에서만 쓰고 local에서 servers 부분은 지우고 써야함
+
+
+
+
+
+
     }
 }
