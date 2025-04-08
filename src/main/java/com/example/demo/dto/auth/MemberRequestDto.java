@@ -2,7 +2,6 @@ package com.example.demo.dto.auth;
 
 import com.example.demo.entity.Member.Authority;
 import com.example.demo.entity.Member.Member;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,15 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MemberRequestDto {
-    @ApiModelProperty(value="이메일", example="ssohye@icloud.com",required = true)
-    private String email;
-    @ApiModelProperty(value="비밀번호", example="12345678",required = true)
-    private String password;
-    @ApiModelProperty(value="이름", example="조태완바보",required = true)
-    private String name;
-    @ApiModelProperty(value="전화번호", example="01028686435",required = true)
-    private String phonenumber;
+public class MemberRequestDto {    private String email;    private String password;    private String name;    private String phonenumber;
 
     public Member toMember(PasswordEncoder passwordEncoder) {
         return Member.builder()

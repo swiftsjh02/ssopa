@@ -7,7 +7,6 @@ import com.example.demo.dto.auth.*;
 import com.example.demo.dto.jwt.TokenReqDto;
 import com.example.demo.dto.auth.MemberRequestDto;
 
-import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Api(tags = "AuthController : 로그인/회원가입 관련 컨트롤러")
 public class AuthController {
     private final AuthService authService;
     private final HttpResponseUtil httpResponseUtil;

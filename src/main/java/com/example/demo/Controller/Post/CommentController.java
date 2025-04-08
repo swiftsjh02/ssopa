@@ -14,9 +14,6 @@ import com.example.demo.dto.Comment.LoadCommentDto;
 import com.example.demo.dto.post.PostDeleteDto;
 import com.example.demo.dto.post.PostRequestDto;
 import com.example.demo.dto.post.PostResponseDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Controller
 @RequestMapping("/comment")
-@Api(tags = "CommentController : 댓글 관리 컨트롤러")
 @RequiredArgsConstructor
 
 public class CommentController {

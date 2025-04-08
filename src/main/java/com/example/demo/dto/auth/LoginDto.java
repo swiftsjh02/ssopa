@@ -1,6 +1,5 @@
 package com.example.demo.dto.auth;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoginDto {
-    @ApiModelProperty(value="이메일", example="ssohye@icloud.com",required = true)
-    private String email;
-    @ApiModelProperty(value="비밀번호", example="12345678",required = true)
-    private String password;
+public class LoginDto {    private String email;    private String password;
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
         return new UsernamePasswordAuthenticationToken(email, password);

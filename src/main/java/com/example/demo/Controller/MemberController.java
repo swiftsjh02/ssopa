@@ -10,10 +10,7 @@ import com.example.demo.dto.member.MemberResponseDto;
 
 import com.example.demo.entity.Member.Friendship;
 import com.example.demo.entity.Member.Member;
-import com.example.demo.repository.DeviceTokenRepository;
 import com.example.demo.repository.Member.FriendshipRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +20,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
-@Api(tags = "MemberController : 회원 정보 요청 관련 컨트롤러")
 public class MemberController {
     private final MemberService memberService;
     private final HttpResponseUtil httpResponseUtil;
@@ -31,7 +27,6 @@ public class MemberController {
 
 
     @GetMapping("/me")
-    @ApiOperation(value = "내 정보 조회")
     public ResponseEntity<?> getMyMemberInfo() {
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
         try {
@@ -42,7 +37,6 @@ public class MemberController {
     }
 
     @GetMapping("/friend/list")
-    @ApiOperation(value = "내 친구 목록 조회")
     public ResponseEntity<?> getMyFriends() {
         try {
 
@@ -54,7 +48,6 @@ public class MemberController {
     }
 
     @PostMapping("/friend/request")
-    @ApiOperation(value = "친구 요청 보내기")
     public ResponseEntity<?> requestFriend(@RequestBody FriendRequestDto dto) {
         try {
                     memberService.sendFriendRequest(dto);
@@ -68,7 +61,6 @@ public class MemberController {
     }
 
     @PostMapping("/friend/reply")
-    @ApiOperation(value = "친구 추가 요청에 대한 답변을 핸들하는 컨트롤러")
     public ResponseEntity<?> requestFriendReply(@RequestBody FriendRequestReplyDto dto) {
         try{
             memberService.handleFriendRequestReply(dto);
@@ -81,7 +73,6 @@ public class MemberController {
     }
 
     @GetMapping("/friend/lookup")
-    @ApiOperation(value="나에게 온 친구 요청 목록 조회")
     public ResponseEntity<?> getFriendRequest() {
         try{
             List<Friendship> requests = memberService.getPendingRequestsForUser();
@@ -93,7 +84,6 @@ public class MemberController {
 
 
     @PostMapping("/nickname")
-    @ApiOperation(value = "닉네임 변경 요청")
     public ResponseEntity<?> setMemberNickname() {
         try {
             return httpResponseUtil.createOKHttpResponse(memberService.changeMemberNickname(), "닉네임 변경 성공");
@@ -102,7 +92,6 @@ public class MemberController {
         }
     }
 
-    @ApiOperation(value = "비밀번호 변경 요청")
     @PostMapping("/password")
     public ResponseEntity<?> setMemberPassword(@RequestBody ChangePasswordRequestDto request) {
         try {
@@ -113,7 +102,6 @@ public class MemberController {
     }
 
     @PostMapping("/synctoken")
-    @ApiOperation(value = "모바일 기기의 토큰을 계정과 연동")
     public ResponseEntity<?> syncToken(@RequestParam(value="deviceToken") String token) {
         try {
             return httpResponseUtil.createOKHttpResponse(memberService.syncToken(token), "토큰연동 성공 ");

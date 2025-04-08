@@ -66,7 +66,8 @@ public class WebSecurityConfig{
                 .and()
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/auth/**","/api/**","/v3/api-docs","/swagger-ui/**").permitAll()
-                        .antMatchers("/v2/api-docs/**").permitAll()
+                        .antMatchers("/v3/api-docs/**").permitAll()
+                        .antMatchers("/swagger-ui.html").permitAll()
                         .antMatchers("/v2/api-docs").permitAll()
                         //.antMatchers("/member/**").permitAll()
                         .antMatchers("/index").permitAll()

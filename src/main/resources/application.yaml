@@ -65,5 +65,9 @@ server:
     include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
 
 
+springdoc:
+  swagger-ui:
+    path: /api/doc
+
 
 
