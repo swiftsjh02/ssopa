@@ -18,7 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -120,6 +122,30 @@ public class MemberService {
         String myEmail = member.getEmail();
         return friendshipRepository.findByAddresseeEmailAndStatus(myEmail, Friendship.Status.PENDING);
     }
+
+    public List<Member> getMyFriends() {
+        Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+        String myEmail = member.getEmail();
+        List<Friendship> friendships = friendshipRepository.findAllAcceptedFriendshipsByEmail(myEmail);
+
+        return friendships.stream()
+                .map(friendship -> {
+                    // 내가 요청자면 상대방 이메일로 찾고
+                    if (friendship.getRequester().getEmail().equals(myEmail)) {
+                        return memberRepository.findByEmail(friendship.getAddresseeEmail())
+                                .orElse(null);
+                    } else {
+                        // 내가 수신자면 요청자 반환
+                        return friendship.getRequester();
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+
+
+    }
+
 
 
     //apns 토큰 등록

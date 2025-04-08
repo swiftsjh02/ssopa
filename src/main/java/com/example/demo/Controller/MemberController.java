@@ -41,6 +41,18 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/friend/list")
+    @ApiOperation(value = "내 친구 목록 조회")
+    public ResponseEntity<?> getMyFriends() {
+        try {
+
+            List<Member> friends = memberService.getMyFriends();
+            return httpResponseUtil.createOKHttpResponse(friends, "친구 목록 조회 성공");
+        } catch (Exception e) {
+            return httpResponseUtil.createInternalServerErrorHttpResponse("친구 목록 조회 실패: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/friend/request")
     @ApiOperation(value = "친구 요청 보내기")
     public ResponseEntity<?> requestFriend(@RequestBody FriendRequestDto dto) {
