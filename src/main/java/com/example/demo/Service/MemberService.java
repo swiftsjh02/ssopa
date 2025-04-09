@@ -2,10 +2,7 @@ package com.example.demo.Service;
 
 import com.example.demo.config.SecurityUtil;
 import com.example.demo.dto.auth.syncTokenResponseDto;
-import com.example.demo.dto.member.FriendRequestDto;
-import com.example.demo.dto.member.FriendRequestReplyDto;
-import com.example.demo.dto.member.FriendrequestResponseDto;
-import com.example.demo.dto.member.MemberResponseDto;
+import com.example.demo.dto.member.*;
 import com.example.demo.entity.DeviceToken;
 import com.example.demo.entity.Member.Friendship;
 import com.example.demo.entity.Member.Member;
@@ -117,11 +114,19 @@ public class MemberService {
 
     }
 
-    public List<Friendship> getPendingRequestsForUser(){
-        Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+    public List<FriendshipRequestLookupDto> getPendingRequestsForUser() {
+        Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId())
+                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
         String myEmail = member.getEmail();
-        return friendshipRepository.findByAddresseeEmailAndStatus(myEmail, Friendship.Status.PENDING);
+
+        List<Friendship> friendships = friendshipRepository.findByAddresseeEmailAndStatus(myEmail, Friendship.Status.PENDING);
+
+        return friendships.stream()
+                .map(FriendshipRequestLookupDto::new)
+                .collect(Collectors.toList());
     }
+
+
 
     public List<Member> getMyFriends() {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));

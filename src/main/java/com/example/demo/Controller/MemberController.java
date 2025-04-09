@@ -3,10 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Service.MemberService;
 import com.example.demo.common.HttpResponseUtil;
 import com.example.demo.config.SecurityUtil;
-import com.example.demo.dto.member.ChangePasswordRequestDto;
-import com.example.demo.dto.member.FriendRequestDto;
-import com.example.demo.dto.member.FriendRequestReplyDto;
-import com.example.demo.dto.member.MemberResponseDto;
+import com.example.demo.dto.member.*;
 
 import com.example.demo.entity.Member.Friendship;
 import com.example.demo.entity.Member.Member;
@@ -75,7 +72,7 @@ public class MemberController {
     @GetMapping("/friend/lookup")
     public ResponseEntity<?> getFriendRequest() {
         try{
-            List<Friendship> requests = memberService.getPendingRequestsForUser();
+            List<FriendshipRequestLookupDto> requests = memberService.getPendingRequestsForUser();
             return httpResponseUtil.createOKHttpResponse(requests,"친구 요청 목록 조회 성공");
         }catch (Exception e){
             return httpResponseUtil.createInternalServerErrorHttpResponse(e.getMessage());
