@@ -128,21 +128,22 @@ public class MemberService {
 
 
 
-    public List<Member> getMyFriends() {
+    public List<MemberResponseDto> getMyFriends() {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
         String myEmail = member.getEmail();
         List<Friendship> friendships = friendshipRepository.findAllAcceptedFriendshipsByEmail(myEmail);
 
         return friendships.stream()
                 .map(friendship -> {
-                    // 내가 요청자면 상대방 이메일로 찾고
+                    Member friend;
                     if (friendship.getRequester().getEmail().equals(myEmail)) {
-                        return memberRepository.findByEmail(friendship.getAddresseeEmail())
+                        friend = memberRepository.findByEmail(friendship.getAddresseeEmail())
                                 .orElse(null);
                     } else {
-                        // 내가 수신자면 요청자 반환
-                        return friendship.getRequester();
+                        friend = friendship.getRequester();
                     }
+                    // Member → MemberResponseDto 변환
+                    return MemberResponseDto.of(friend);
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

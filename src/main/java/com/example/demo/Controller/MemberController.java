@@ -37,8 +37,8 @@ public class MemberController {
     public ResponseEntity<?> getMyFriends() {
         try {
 
-            List<Member> friends = memberService.getMyFriends();
-            return httpResponseUtil.createOKHttpResponse(friends, "친구 목록 조회 성공");
+
+            return httpResponseUtil.createOKHttpResponse(memberService.getMyFriends(), "친구 목록 조회 성공");
         } catch (Exception e) {
             return httpResponseUtil.createInternalServerErrorHttpResponse("친구 목록 조회 실패: " + e.getMessage());
         }
