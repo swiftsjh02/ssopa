@@ -43,7 +43,8 @@ public class StompHandler implements ChannelInterceptor {
 
     // 목적지 상수 정의
     private static final String CHAT_DESTINATION_PREFIX = "/app/chat"; // 예시: 채팅 메시지 목적지 접두사
-    private static final String LOCATION_DESTINATION = "/app/location/update"; // 위치 업데이트 목적지
+    private static final String LOCATION_UPDATE_DESTINATION = "/app/location/update"; // 위치 업데이트 목적지
+    private static final String LOCATION_REQUEST_DESTINATION = "/app/location/request";
 
 
     @Override
@@ -146,7 +147,7 @@ public class StompHandler implements ChannelInterceptor {
             // 채팅 메시지 처리
             log.debug("Processing chat message for user '{}' to destination '{}'", userId, destination);
             processChatMessage(message, userId);
-        } else if (destination.equals(LOCATION_DESTINATION)) {
+        } else if (destination.equals(LOCATION_UPDATE_DESTINATION)) {
             // 위치 정보 업데이트 처리
             log.debug("Processing location update for user '{}'", userId);
             processLocationUpdate(message, userId);

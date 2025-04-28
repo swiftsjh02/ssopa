@@ -287,18 +287,4 @@ public class AuthService {
                 .build();
     }
 
-    public String registerToken(String token) {
-        Optional<DeviceToken> deviceToken = deviceTokenRepository.findByToken(token);
-        if (deviceToken.isPresent()) {
-
-            return "토큰 등록 성공";
-        }
-        else{
-            DeviceToken newToken = new DeviceToken();
-            newToken.setIsRegistered(false);
-            newToken.setToken(token);
-            deviceTokenRepository.save(newToken);
-            return "토큰 등록 성공";
-        }
-    }
 }//

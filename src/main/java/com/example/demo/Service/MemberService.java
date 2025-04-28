@@ -65,13 +65,13 @@ public class MemberService {
             throw new IllegalStateException("이미 처리된 요청입니다.");
         }
 
-        if(request.getStatus()== Friendship.Status.ACCEPTED){
+        if (reply.getIsAccepted()) {
             request.setStatus(Friendship.Status.ACCEPTED);
-            friendshipRepository.save(request);
-        }else if(request.getStatus()== Friendship.Status.REJECTED){
+        } else {
             request.setStatus(Friendship.Status.REJECTED);
-            friendshipRepository.save(request);
         }
+        friendshipRepository.save(request);
+
 
     }
 
@@ -150,6 +150,38 @@ public class MemberService {
 
 
     }
+
+
+    // **새로 추가할 메서드: 특정 유저 ID(String)로 친구 목록 가져오기**
+    // 이 메서드는 LocationController에서 Principal.getName()으로 받은 ID를 사용합니다.
+
+    public List<Member> getFriendsByUserId(String userIdString) {
+        try {
+            Long userId = Long.valueOf(userIdString); // String ID를 Long으로 변환
+            Member member = memberRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("유저 정보를 찾을 수 없습니다: " + userIdString)); // 해당 ID의 유저가 없으면 예외
+
+            String myEmail = member.getEmail();
+            List<Friendship> friendships = friendshipRepository.findAllAcceptedFriendshipsByEmail(myEmail);
+
+            return friendships.stream()
+                    .map(friendship -> {
+                        // 내가 요청자면 상대방 이메일로 찾고
+                        if (friendship.getRequester().getEmail().equals(myEmail)) {
+                            return memberRepository.findByEmail(friendship.getAddresseeEmail())
+                                    .orElse(null); // 친구 Member 객체를 찾지 못하면 null
+                        } else {
+                            // 내가 수신자면 요청자 Member 객체 반환
+                            return friendship.getRequester();
+                        }
+                    })
+                    .filter(Objects::nonNull) // null인 친구는 제외
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("유효하지 않은 유저 ID 형식입니다: " + userIdString, e);
+        }
+    }
+
 
 
 

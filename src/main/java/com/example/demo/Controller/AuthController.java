@@ -21,15 +21,7 @@ public class AuthController {
     private final AuthService authService;
     private final HttpResponseUtil httpResponseUtil;
 
-    @Operation(summary = "디바이스토큰등록")
-    @PostMapping("/registertoken")
-    public ResponseEntity<?> signup(@RequestParam(value="deviceToken") String token) {
-        try {
-            return httpResponseUtil.createOKHttpResponse(authService.registerToken(token), "토큰 등록 성공");
-        } catch (Exception e) {
-            return httpResponseUtil.createInternalServerErrorHttpResponse("토큰등록 실패: " + e.getMessage());
-        }
-    }
+
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")

@@ -25,7 +25,7 @@ public class DeviceToken {
     @Column(nullable = false)
     private Boolean isRegistered;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "memberId", referencedColumnName = "id", nullable = true)
     private Member memberId;
 
